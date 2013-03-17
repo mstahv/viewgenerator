@@ -100,7 +100,15 @@ public class ViewGenerator {
 		Velocity.setProperty("file.resource.loader.class",
 				ClasspathResourceLoader.class.getName());
 		Velocity.init();
-		Template template = Velocity.getTemplate("vd.vm");
+		
+		String templateName = "vd.vm";
+		for (String a : args) {
+			if (a.startsWith("-v7")) {
+				templateName = "vd7.vm";
+			}
+		}
+		
+		Template template = Velocity.getTemplate(templateName);
 
 		VelocityContext velocityContext = new VelocityContext();
 		String packagenName = beanClass.getPackage().toString();
